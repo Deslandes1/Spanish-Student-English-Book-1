@@ -192,7 +192,7 @@ def check_password():
 
 # ---------- AUTHENTICATION CHECK ----------
 if not check_password():
-    st.stop()  # Stop execution if not authenticated
+    st.stop()
 
 # ---------- AFTER LOGIN: SHOW THE FULL APP ----------
 
@@ -489,6 +489,7 @@ if selected_song:
     col1, col2 = st.columns([3, 2])
 
     with col1:
+        # YouTube video
         st.markdown(f"""
         <div style="position:relative; padding-bottom:56.25%; height:0; overflow:hidden; border-radius:16px; box-shadow: 0 4px 20px rgba(0,0,0,0.1);">
             <iframe src="{song['embed_url']}"
@@ -499,7 +500,39 @@ if selected_song:
         </div>
         """, unsafe_allow_html=True)
 
+        # ---------- NEW: Verb Tense Video ----------
+        st.markdown("---")
+        st.markdown("## 🕒 Learn Verb Tenses with Music")
+
+        # Embed the video from GitHub
+        video_url = "https://raw.githubusercontent.com/Deslandes1/Spanish-Student-English-Book-1/main/Everydaysong.mp4"
+        st.markdown(f"""
+        <div style="position:relative; padding-bottom:56.25%; height:0; overflow:hidden; border-radius:16px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); margin-top:10px;">
+            <video controls style="position:absolute; top:0; left:0; width:100%; height:100%;">
+                <source src="{video_url}" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+        """, unsafe_allow_html=True)
+
+        # Script below the video
+        st.markdown("""
+        <div style="background: #fce4ec; padding: 20px; border-radius: 16px; border: 1px solid #f8bbd0; margin-top: 15px; text-align: center;">
+            <p style="font-size: 1.1rem; color: #4a1a2a; line-height: 1.8;">
+                📚 Don't learn one by one.<br>
+                Learn the same verb through 4 time milestones:<br>
+                🕒 Every day...<br>
+                🕒 Yesterday...<br>
+                🕒 Tomorrow...<br>
+                🕒 Now...<br><br>
+                This is a simple way to distinguish between the present, past, future, and continuous present without confusion. ✨<br><br>
+                Save the video to practice with Ms. Nhung! 💙
+            </p>
+        </div>
+        """, unsafe_allow_html=True)
+
     with col2:
+        # Lyrics display
         st.markdown(f"""
         <div class="lyrics-container">
             <div class="song-title">🎤 {selected_song}</div>
