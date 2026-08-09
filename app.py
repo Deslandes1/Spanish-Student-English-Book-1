@@ -15,19 +15,38 @@ st.set_page_config(
 # ---------- LIGHT ROSE THEME (Custom CSS) ----------
 st.markdown("""
 <style>
+    /* Main app background */
     .stApp {
         background: #fce4ec !important;
     }
-    .css-1d391kg, .css-1d391kg .sidebar-content {
+
+    /* Sidebar – using proper Streamlit selectors */
+    [data-testid="stSidebar"] {
         background: #f8bbd0 !important;
+        border-right: 2px solid #f06292 !important;
     }
-    .css-1d391kg .stMarkdown, .css-1d391kg .stCaption, .css-1d391kg .stButton button {
+
+    /* Sidebar content inside */
+    [data-testid="stSidebar"] .stMarkdown,
+    [data-testid="stSidebar"] .stCaption,
+    [data-testid="stSidebar"] .stButton button,
+    [data-testid="stSidebar"] .stSelectbox label,
+    [data-testid="stSidebar"] .stSelectbox div,
+    [data-testid="stSidebar"] .stSelectbox option {
         color: #4a1a2a !important;
     }
-    h1, h2, h3, h4, h5 {
+
+    /* Sidebar headers */
+    [data-testid="stSidebar"] h1, 
+    [data-testid="stSidebar"] h2, 
+    [data-testid="stSidebar"] h3, 
+    [data-testid="stSidebar"] h4, 
+    [data-testid="stSidebar"] h5 {
         color: #880e4f !important;
     }
-    .stButton button {
+
+    /* Sidebar buttons – match theme */
+    [data-testid="stSidebar"] .stButton button {
         background: #f06292 !important;
         color: white !important;
         border: none !important;
@@ -35,14 +54,26 @@ st.markdown("""
         padding: 8px 24px !important;
         font-weight: 600 !important;
     }
-    .stButton button:hover {
+    [data-testid="stSidebar"] .stButton button:hover {
         background: #ec407a !important;
         transform: scale(1.02);
         box-shadow: 0 4px 15px rgba(236, 64, 122, 0.3);
     }
-    .stSelectbox label, .stSelectbox div {
+
+    /* Sidebar selectbox (dropdown) */
+    [data-testid="stSidebar"] .stSelectbox > div > div {
+        background: #fce4ec !important;
+        border: 1px solid #f06292 !important;
+        border-radius: 20px !important;
         color: #4a1a2a !important;
     }
+
+    /* Main page headers */
+    h1, h2, h3, h4, h5 {
+        color: #880e4f !important;
+    }
+
+    /* Expanders */
     .stExpander {
         background: #fce4ec !important;
         border: 1px solid #f8bbd0 !important;
@@ -51,11 +82,40 @@ st.markdown("""
     .stExpander .stMarkdown {
         color: #4a1a2a !important;
     }
+
+    /* Audio player background */
     .stAudio {
         background: #f8bbd0 !important;
         border-radius: 30px !important;
         padding: 2px 8px !important;
     }
+
+    /* Text input fields */
+    .stTextInput input {
+        background: #fce4ec !important;
+        border: 1px solid #f8bbd0 !important;
+        border-radius: 20px !important;
+        color: #4a1a2a !important;
+    }
+    .stTextInput input:focus {
+        border-color: #f06292 !important;
+    }
+
+    /* Success/Error messages */
+    .stSuccess {
+        background: #a5d6a7 !important;
+        color: #1e3a1e !important;
+        border-radius: 20px !important;
+        padding: 8px 16px !important;
+    }
+    .stError {
+        background: #ef9a9a !important;
+        color: #4a1a2a !important;
+        border-radius: 20px !important;
+        padding: 8px 16px !important;
+    }
+
+    /* Footer */
     .footer {
         color: #880e4f !important;
         opacity: 0.7;
@@ -63,16 +123,9 @@ st.markdown("""
         margin-top: 30px;
         font-size: 0.8rem;
     }
+
     hr {
         border-color: #f8bbd0 !important;
-    }
-    .stTextInput input {
-        background: #fce4ec !important;
-        border: 1px solid #f8bbd0 !important;
-        border-radius: 20px !important;
-    }
-    .stTextInput input:focus {
-        border-color: #f06292 !important;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -112,37 +165,11 @@ def audio_player(text: str, lang: str = "en", key: str = None):
     st.markdown(audio_html, unsafe_allow_html=True)
 
 # ---------- BOOK DATA (20 CHAPTERS WITH READINGS) ----------
-# We define a helper to create chapter data with unique reading topics.
 
-# Reading topics for each chapter (20 distinct topics)
-reading_topics = [
-    "The Importance of Learning English",
-    "My Daily Routine",
-    "Family Traditions",
-    "Healthy Eating Habits",
-    "The Benefits of Travel",
-    "My Favorite Hobby",
-    "The Weather Around the World",
-    "A Day at the Market",
-    "Staying Healthy",
-    "Different Jobs and Careers",
-    "The School Experience",
-    "Technology in Our Lives",
-    "The Role of Media",
-    "The Excitement of Sports",
-    "Celebrating Festivals",
-    "Protecting Our Environment",
-    "Homes Around the World",
-    "Fashion and Style",
-    "Understanding Emotions",
-    "Planning for the Future"
-]
-
+# Helper to create a reading documentary for a topic
 def make_reading(topic):
-    # Generate a generic but unique reading text for the topic
     english = f"This is a documentary about {topic.lower()}. Learning about {topic.lower()} is important for everyone. It helps us understand the world better. We can share our experiences and learn from each other. In this chapter, we explore {topic.lower()} from different perspectives. Remember that every day is a chance to learn something new about {topic.lower()}."
     spanish = f"Este es un documental sobre {topic.lower()}. Aprender sobre {topic.lower()} es importante para todos. Nos ayuda a entender mejor el mundo. Podemos compartir nuestras experiencias y aprender unos de otros. En este capítulo, exploramos {topic.lower()} desde diferentes perspectivas. Recuerda que cada día es una oportunidad para aprender algo nuevo sobre {topic.lower()}."
-    # Generate 10 comprehension questions based on the topic
     questions = [
         {"question": f"What is the main topic of this documentary?", "answer": topic},
         {"question": "Why is learning about this topic important?", "answer": "It helps us understand the world better."},
@@ -175,16 +202,8 @@ def make_reading(topic):
         "homework": homework
     }
 
-# Build chapters with the existing ch1 and then generate 19 more
-# We'll keep chapter 1 as before but add reading to it as well.
-# For simplicity, we'll generate all chapters with readings using the topic list.
-# We'll also keep conversations, vocab, idioms, etc. from the previous version.
-
-# ---- We'll create a generator for full chapters ----
+# Helper to build a full chapter
 def make_chapter(num, title, span_title, topic):
-    # Reuse the previous generator but add reading
-    # We'll use the same conv, vocab, idioms, etc. as before but with distinct content.
-    # For brevity, we'll produce simple generic content but all unique.
     conv_eng = [f"Let's talk about {title}.", f"Do you like {title.lower()}?", f"I enjoy {title.lower()} very much."]
     conv_spa = [f"Hablemos sobre {title}.", f"¿Te gusta {title.lower()}?", f"Disfruto mucho {title.lower()}."]
     vocab = [(f"word{i+1}", f"palabra{i+1}") for i in range(10)]
@@ -211,7 +230,7 @@ def make_chapter(num, title, span_title, topic):
         "reading": reading
     }
 
-# Chapter 1 has a specific topic: "Introductions" but we'll use the first topic.
+# Chapter topics and titles
 topics = [
     "Introductions",
     "Daily Routine",
@@ -404,7 +423,7 @@ with st.expander("📄 6. Reading Documentary – Written by Gesner Deslandes", 
                 st.error("❌ Not correct")
         st.markdown("---")
 
-# ---------- 7. EXERCISES (existing) ----------
+# ---------- 7. EXERCISES ----------
 with st.expander("✏️ 7. Exercises / Ejercicios", expanded=True):
     # Class Assignment
     st.subheader("📝 Class Assignment / Tarea en Clase")
