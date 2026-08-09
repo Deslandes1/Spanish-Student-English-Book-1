@@ -176,19 +176,48 @@ st.markdown("""
     hr {
         border-color: #f8bbd0 !important;
     }
+
+    /* Top right info */
+    .top-right {
+        text-align: right;
+        padding: 10px 0;
+    }
+    .top-right .price {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #880e4f;
+    }
+    .top-right .author {
+        font-size: 0.9rem;
+        color: #4a1a2a;
+        opacity: 0.8;
+    }
 </style>
 """, unsafe_allow_html=True)
 
-# ---------- TITLE & CONTACT ----------
-st.markdown("""
-# 🌹 Let's Learn English With Gesner
-### 📖 Aprendamos Inglés con Gesner – Libro 1
-""")
-st.markdown("""
-**👨‍🏫 Teacher Gesner Deslandes**
-📞 (509)-4738-5663
-✉️ deslandes78@gmail.com
-""")
+# ---------- TOP SECTION: LEFT (title/contact) + RIGHT (price/author) ----------
+col_left, col_right = st.columns([2, 1])
+
+with col_left:
+    st.markdown("""
+    # 🌹 Let's Learn English With Gesner
+    ### 📖 Aprendamos Inglés con Gesner – Libro 1
+    """)
+    st.markdown("""
+    **👨‍🏫 Teacher Gesner Deslandes**
+    📞 (509)-4738-5663
+    ✉️ deslandes78@gmail.com
+    """)
+
+with col_right:
+    st.markdown("""
+    <div class="top-right">
+        <div class="price">💰 $30 USD</div>
+        <div class="author">✍️ Written by <strong>Gesner Deslandes</strong></div>
+        <div style="font-size:0.8rem; color:#880e4f; opacity:0.6;">GlobalInternet.py</div>
+    </div>
+    """, unsafe_allow_html=True)
+
 st.markdown("---")
 
 # ---------- CACHED AUDIO GENERATION ----------
@@ -372,34 +401,67 @@ songs = {
             {"es": "Siempre te recordaré", "en": "I will always remember you"}
         ]
     },
-    "Bailando": {
-        "url": "https://youtu.be/4t6h6GQlG8E?si=ABC123",  # Placeholder - replace with actual URL
-        "embed_url": "https://www.youtube.com/embed/4t6h6GQlG8E",
+    "Súbeme la Radio": {
+        "url": "https://youtu.be/9sg-A-eS6Ig?si=ABC123",
+        "embed_url": "https://www.youtube.com/embed/9sg-A-eS6Ig",
         "lyrics": [
-            {"es": "Yo te miro y se me corta la respiración", "en": "I look at you and my breath catches"},
-            {"es": "Cuando tú me miras se me sube el corazón", "en": "When you look at me my heart rises"},
-            {"es": "Y en un silencio tu mirada dice mil palabras", "en": "And in silence your gaze says a thousand words"},
-            {"es": "Ese fuego por dentro me va enloqueciendo", "en": "That fire inside me is driving me crazy"},
-            {"es": "Yo quiero estar contigo, vivir contigo", "en": "I want to be with you, live with you"},
-            {"es": "Bailar contigo, tener contigo", "en": "Dance with you, have with you"},
-            {"es": "Una noche loca, ay besar tu boca", "en": "A crazy night, oh kiss your mouth"},
-            {"es": "Ya no puedo más, ya no puedo más", "en": "I can't take it anymore, I can't take it anymore"}
+            {"es": "Súbeme la radio", "en": "Turn up the radio for me"},
+            {"es": "Trá-tráeme el alcohol", "en": "Bring me the alcohol"},
+            {"es": "Súbeme la radio que esta es mi canción", "en": "Turn up the radio, this is my song"},
+            {"es": "Siente el bajo que va subiendo", "en": "Feel the bass getting louder"},
+            {"es": "Tráeme el alcohol que quita el dolor", "en": "Bring me alcohol that takes away the pain"},
+            {"es": "Hoy vamos a juntar la luna y el sol", "en": "Today we're putting the moon and the sun together"},
+            {"es": "Ya no me importa nada", "en": "Nothing matters to me anymore"},
+            {"es": "Ni el día, ni la hora", "en": "Not dates nor times"},
+            {"es": "Si lo he perdido todo", "en": "If I've lost everything"},
+            {"es": "Me has dejado en las sombras", "en": "You left me in the darkness"},
+            {"es": "Te juro que te pienso", "en": "I swear I think of you"},
+            {"es": "Hago el mejor intento", "en": "I try my best"},
+            {"es": "El tiempo pasa lento", "en": "Time passes slowly"},
+            {"es": "Y yo me voy muriendo", "en": "And I'm dying"},
+            {"es": "Yo pienso en ti a diario", "en": "I think of you daily"},
+            {"es": "Marco los días en el calendario", "en": "I mark the days on the calendar"},
+            {"es": "Busco palabras en el diccionario", "en": "I look for words in the dictionary"},
+            {"es": "Para dedicarte la mejor canción", "en": "To dedicate the best song to you"},
+            {"es": "Yo no te miento", "en": "I'm not lying to you"},
+            {"es": "Todavía te espero", "en": "I'm still waiting for you"},
+            {"es": "Sabes bien que te quiero", "en": "You know well that I love you"},
+            {"es": "No sé vivir sin ti", "en": "I don't know how to live without you"}
         ]
     },
-    "Duele el Corazón": {
-        "url": "https://youtu.be/2B6O8gU6HlY?si=XYZ789",  # Placeholder - replace with actual URL
-        "embed_url": "https://www.youtube.com/embed/2B6O8gU6HlY",
+    "Esperanza": {
+        "url": "https://youtu.be/Aw_uVY0xS8E?si=7aBLgJxbpHYmZnWd",
+        "embed_url": "https://www.youtube.com/embed/Aw_uVY0xS8E",
         "lyrics": [
-            {"es": "Solo en tu boca yo quiero acabar", "en": "Only in your mouth I want to finish"},
-            {"es": "Todos esos besos que te quiero dar", "en": "All those kisses I want to give you"},
-            {"es": "A mí no me importa que duermas con él", "en": "I don't care if you sleep with him"},
-            {"es": "Porque sé que sueñas con poderme ver", "en": "Because I know you dream of seeing me"},
-            {"es": "Con él te duele el corazón", "en": "With him your heart hurts"},
-            {"es": "Y conmigo te duelen los pies", "en": "And with me your feet hurt"},
-            {"es": "Con él te duele el corazón", "en": "With him your heart hurts"},
-            {"es": "Y conmigo te duelen los pies", "en": "And with me your feet hurt"},
-            {"es": "Si te vas, yo también me voy", "en": "If you go, I'll go too"},
-            {"es": "Si me das, yo también te doy", "en": "If you give me, I'll give you too"}
+            {"es": "Esperanza, ¿dónde vas?", "en": "Hope, where are you going?"},
+            {"es": "Ocultando tu mirada", "en": "Hiding your look"},
+            {"es": "De tristeza abandonada", "en": "Of abandoned sadness"},
+            {"es": "En la soledad?", "en": "In the loneliness?"},
+            {"es": "Esperanza, créeme", "en": "Hope, believe me"},
+            {"es": "Yo no quise hacerte mal", "en": "I did not mean to hurt you"},
+            {"es": "Te suplico me comprendas", "en": "I beg you understand me"},
+            {"es": "Si te defraudé", "en": "If I disappointed you"},
+            {"es": "Esperanza te aseguro", "en": "Hope I assure you"},
+            {"es": "Que sin ti hoy nada tengo", "en": "Without you now I have nothing"},
+            {"es": "Que serás por siempre el ángel", "en": "That you will forever be the angel"},
+            {"es": "De mis sueños", "en": "Of my dreams"},
+            {"es": "Aquí estoy, ya me ves", "en": "Here I am, you see me"},
+            {"es": "Suplicándote perdón", "en": "Begging for forgiveness"},
+            {"es": "Si en verdad te fallé", "en": "If I truly failed you"},
+            {"es": "No fue esa mi intención", "en": "It was not my intention"},
+            {"es": "Cúlpame y entiérrame", "en": "Blame me and bury me"},
+            {"es": "En el pecho tu dolor", "en": "In your chest pain"},
+            {"es": "Pero no te vayas nunca", "en": "But never leave me"},
+            {"es": "No me ignores, por favor", "en": "Don't ignore me, please"},
+            {"es": "Qué difícil descubrir", "en": "How hard to discover"},
+            {"es": "El vacío en tu mirar", "en": "The emptiness in your eyes"},
+            {"es": "Donde ardía aquel incendio", "en": "Where that fire was burning"},
+            {"es": "Sobrenatural", "en": "Supernatural"},
+            {"es": "Escondida en un rincón", "en": "Hidden in a corner"},
+            {"es": "Con el mundo del revés", "en": "With the world upside down"},
+            {"es": "Y que todo sea culpa", "en": "And that everything is fault"},
+            {"es": "De mi estupidez", "en": "Of my stupidity"},
+            {"es": "No me dejes, por favor", "en": "Don't leave me, please"}
         ]
     }
 }
@@ -419,13 +481,6 @@ st.sidebar.markdown("*Translated into English*")
 song_names = list(songs.keys())
 selected_song = st.sidebar.radio("Select a song:", song_names)
 
-# ---------- DISPLAY SELECTED CHAPTER OR SONG ----------
-# Check if a song is selected (we use a session state to track)
-# We'll display the song content in the main area when a song is selected from the sidebar.
-
-# We'll use a simple approach: display song content in the main area if the user has selected a song.
-# To avoid conflicts, we'll show the song content in a dedicated section.
-
 # ---------- MAIN CONTENT: SONG DISPLAY ----------
 if selected_song:
     st.header(f"🎵 {selected_song}")
@@ -436,7 +491,6 @@ if selected_song:
     col1, col2 = st.columns([3, 2])
 
     with col1:
-        # Embedded YouTube video
         st.markdown(f"""
         <div style="position:relative; padding-bottom:56.25%; height:0; overflow:hidden; border-radius:16px; box-shadow: 0 4px 20px rgba(0,0,0,0.1);">
             <iframe src="{song['embed_url']}"
@@ -448,7 +502,6 @@ if selected_song:
         """, unsafe_allow_html=True)
 
     with col2:
-        # Lyrics display
         st.markdown(f"""
         <div class="lyrics-container">
             <div class="song-title">🎤 {selected_song}</div>
