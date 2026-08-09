@@ -37,10 +37,10 @@ st.markdown("""
     }
 
     /* Sidebar headers */
-    [data-testid="stSidebar"] h1, 
-    [data-testid="stSidebar"] h2, 
-    [data-testid="stSidebar"] h3, 
-    [data-testid="stSidebar"] h4, 
+    [data-testid="stSidebar"] h1,
+    [data-testid="stSidebar"] h2,
+    [data-testid="stSidebar"] h3,
+    [data-testid="stSidebar"] h4,
     [data-testid="stSidebar"] h5 {
         color: #880e4f !important;
     }
@@ -66,6 +66,20 @@ st.markdown("""
         border: 1px solid #f06292 !important;
         border-radius: 20px !important;
         color: #4a1a2a !important;
+    }
+
+    /* Sidebar radio buttons */
+    [data-testid="stSidebar"] .stRadio > div {
+        background: #fce4ec !important;
+        border-radius: 16px !important;
+        padding: 8px 12px !important;
+    }
+    [data-testid="stSidebar"] .stRadio label {
+        color: #4a1a2a !important;
+    }
+    [data-testid="stSidebar"] .stRadio label:hover {
+        background: #f8bbd0 !important;
+        border-radius: 30px !important;
     }
 
     /* Main page headers */
@@ -124,6 +138,41 @@ st.markdown("""
         font-size: 0.8rem;
     }
 
+    /* Song lyrics styling */
+    .lyrics-container {
+        background: #fce4ec;
+        border-radius: 16px;
+        padding: 20px;
+        border: 1px solid #f8bbd0;
+        max-height: 500px;
+        overflow-y: auto;
+    }
+    .lyrics-container .song-title {
+        color: #880e4f;
+        font-size: 1.3rem;
+        font-weight: 700;
+        text-align: center;
+        margin-bottom: 12px;
+    }
+    .lyrics-container .lyric-line {
+        padding: 4px 0;
+        font-size: 0.95rem;
+        line-height: 1.6;
+        border-bottom: 1px solid rgba(248, 187, 208, 0.3);
+    }
+    .lyrics-container .lyric-line .es {
+        color: #4a1a2a;
+        font-weight: 500;
+    }
+    .lyrics-container .lyric-line .en {
+        color: #880e4f;
+        font-style: italic;
+        padding-left: 16px;
+    }
+    .lyrics-container .lyric-line:last-child {
+        border-bottom: none;
+    }
+
     hr {
         border-color: #f8bbd0 !important;
     }
@@ -136,8 +185,8 @@ st.markdown("""
 ### 📖 Aprendamos Inglés con Gesner – Libro 1
 """)
 st.markdown("""
-**👨‍🏫 Teacher Gesner Deslandes**  
-📞 (509)-4738-5663  
+**👨‍🏫 Teacher Gesner Deslandes**
+📞 (509)-4738-5663
 ✉️ deslandes78@gmail.com
 """)
 st.markdown("---")
@@ -303,11 +352,118 @@ for i in range(20):
     ch = make_chapter(i+1, titles[i], span_titles[i], topics[i])
     chapters.append(ch)
 
-# ---------- SIDEBAR CHAPTER SELECTION ----------
+# ---------- SONG DATA (3 Enrique Iglesias Songs) ----------
+songs = {
+    "Nunca Te Olvidaré": {
+        "url": "https://youtu.be/pRrjt4htXlE?si=6__tGku6THjvZ2h6",
+        "embed_url": "https://www.youtube.com/embed/pRrjt4htXlE",
+        "lyrics": [
+            {"es": "Pueden pasar tres mil años", "en": "Three thousand years may pass"},
+            {"es": "Puedes besar otros labios", "en": "You may kiss other lips"},
+            {"es": "Pero nunca te olvidaré", "en": "But I will never forget you"},
+            {"es": "Pero nunca te olvidaré", "en": "But I will never forget you"},
+            {"es": "Puedo morirme mañana", "en": "I could die tomorrow"},
+            {"es": "Puede secarse mi alma", "en": "My soul could dry up"},
+            {"es": "Pero nunca te olvidaré", "en": "But I will never forget you"},
+            {"es": "Pero nunca te olvidaré", "en": "But I will never forget you"},
+            {"es": "Más que a vivir, más que a nada", "en": "More than living, more than anything"},
+            {"es": "Te quiero más que a mi vida", "en": "I love you more than my life"},
+            {"es": "Y aunque pase lo que pase", "en": "And no matter what happens"},
+            {"es": "Siempre te recordaré", "en": "I will always remember you"}
+        ]
+    },
+    "Bailando": {
+        "url": "https://youtu.be/4t6h6GQlG8E?si=ABC123",  # Placeholder - replace with actual URL
+        "embed_url": "https://www.youtube.com/embed/4t6h6GQlG8E",
+        "lyrics": [
+            {"es": "Yo te miro y se me corta la respiración", "en": "I look at you and my breath catches"},
+            {"es": "Cuando tú me miras se me sube el corazón", "en": "When you look at me my heart rises"},
+            {"es": "Y en un silencio tu mirada dice mil palabras", "en": "And in silence your gaze says a thousand words"},
+            {"es": "Ese fuego por dentro me va enloqueciendo", "en": "That fire inside me is driving me crazy"},
+            {"es": "Yo quiero estar contigo, vivir contigo", "en": "I want to be with you, live with you"},
+            {"es": "Bailar contigo, tener contigo", "en": "Dance with you, have with you"},
+            {"es": "Una noche loca, ay besar tu boca", "en": "A crazy night, oh kiss your mouth"},
+            {"es": "Ya no puedo más, ya no puedo más", "en": "I can't take it anymore, I can't take it anymore"}
+        ]
+    },
+    "Duele el Corazón": {
+        "url": "https://youtu.be/2B6O8gU6HlY?si=XYZ789",  # Placeholder - replace with actual URL
+        "embed_url": "https://www.youtube.com/embed/2B6O8gU6HlY",
+        "lyrics": [
+            {"es": "Solo en tu boca yo quiero acabar", "en": "Only in your mouth I want to finish"},
+            {"es": "Todos esos besos que te quiero dar", "en": "All those kisses I want to give you"},
+            {"es": "A mí no me importa que duermas con él", "en": "I don't care if you sleep with him"},
+            {"es": "Porque sé que sueñas con poderme ver", "en": "Because I know you dream of seeing me"},
+            {"es": "Con él te duele el corazón", "en": "With him your heart hurts"},
+            {"es": "Y conmigo te duelen los pies", "en": "And with me your feet hurt"},
+            {"es": "Con él te duele el corazón", "en": "With him your heart hurts"},
+            {"es": "Y conmigo te duelen los pies", "en": "And with me your feet hurt"},
+            {"es": "Si te vas, yo también me voy", "en": "If you go, I'll go too"},
+            {"es": "Si me das, yo también te doy", "en": "If you give me, I'll give you too"}
+        ]
+    }
+}
+
+# ---------- SIDEBAR: CHAPTER SELECTION ----------
+st.sidebar.markdown("---")
+st.sidebar.markdown("## 📚 Select Chapter")
 chapter_options = [f"Chapter {ch['number']}: {ch['title']}" for ch in chapters]
-selected_label = st.sidebar.selectbox("📚 Select Chapter", chapter_options)
+selected_label = st.sidebar.selectbox("Choose a chapter:", chapter_options)
 selected_idx = chapter_options.index(selected_label)
 chapter = chapters[selected_idx]
+
+# ---------- SIDEBAR: SONG SELECTION ----------
+st.sidebar.markdown("---")
+st.sidebar.markdown("## 🎵 Spanish Song Lyrics")
+st.sidebar.markdown("*Translated into English*")
+song_names = list(songs.keys())
+selected_song = st.sidebar.radio("Select a song:", song_names)
+
+# ---------- DISPLAY SELECTED CHAPTER OR SONG ----------
+# Check if a song is selected (we use a session state to track)
+# We'll display the song content in the main area when a song is selected from the sidebar.
+
+# We'll use a simple approach: display song content in the main area if the user has selected a song.
+# To avoid conflicts, we'll show the song content in a dedicated section.
+
+# ---------- MAIN CONTENT: SONG DISPLAY ----------
+if selected_song:
+    st.header(f"🎵 {selected_song}")
+    st.markdown("---")
+
+    song = songs[selected_song]
+
+    col1, col2 = st.columns([3, 2])
+
+    with col1:
+        # Embedded YouTube video
+        st.markdown(f"""
+        <div style="position:relative; padding-bottom:56.25%; height:0; overflow:hidden; border-radius:16px; box-shadow: 0 4px 20px rgba(0,0,0,0.1);">
+            <iframe src="{song['embed_url']}"
+                    style="position:absolute; top:0; left:0; width:100%; height:100%; border:0;"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen>
+            </iframe>
+        </div>
+        """, unsafe_allow_html=True)
+
+    with col2:
+        # Lyrics display
+        st.markdown(f"""
+        <div class="lyrics-container">
+            <div class="song-title">🎤 {selected_song}</div>
+        """, unsafe_allow_html=True)
+        for line in song["lyrics"]:
+            st.markdown(f"""
+            <div class="lyric-line">
+                <div class="es">🇪🇸 {line['es']}</div>
+                <div class="en">🇺🇸 {line['en']}</div>
+            </div>
+            """, unsafe_allow_html=True)
+        st.markdown("</div>", unsafe_allow_html=True)
+
+    st.markdown("---")
+    st.caption("🎶 Sing along and practice your Spanish pronunciation!")
 
 # ---------- DISPLAY SELECTED CHAPTER ----------
 st.header(f"📘 Chapter {chapter['number']}: {chapter['title']}")
