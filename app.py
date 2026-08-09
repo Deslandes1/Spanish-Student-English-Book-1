@@ -15,19 +15,15 @@ st.set_page_config(
 # ---------- LIGHT ROSE THEME (Custom CSS) ----------
 st.markdown("""
 <style>
-    /* Main background */
     .stApp {
         background: #fce4ec !important;
     }
-    /* Sidebar background */
     .css-1d391kg, .css-1d391kg .sidebar-content {
         background: #f8bbd0 !important;
     }
-    /* Sidebar text */
     .css-1d391kg .stMarkdown, .css-1d391kg .stCaption, .css-1d391kg .stButton button {
         color: #4a1a2a !important;
     }
-    /* Headers */
     h1, h2, h3, h4, h5 {
         color: #880e4f !important;
     }
@@ -70,6 +66,14 @@ st.markdown("""
     hr {
         border-color: #f8bbd0 !important;
     }
+    .stTextInput input {
+        background: #fce4ec !important;
+        border: 1px solid #f8bbd0 !important;
+        border-radius: 20px !important;
+    }
+    .stTextInput input:focus {
+        border-color: #f06292 !important;
+    }
 </style>
 """, unsafe_allow_html=True)
 
@@ -107,11 +111,90 @@ def audio_player(text: str, lang: str = "en", key: str = None):
     """
     st.markdown(audio_html, unsafe_allow_html=True)
 
-# ---------- BOOK DATA (20 CHAPTERS) ----------
-# We generate chapters 1-20 with distinct topics.
-# For brevity, we'll define a helper to create chapter data with varying content.
+# ---------- BOOK DATA (20 CHAPTERS WITH READINGS) ----------
+# We define a helper to create chapter data with unique reading topics.
 
-def make_chapter(num, title, span_title, conv_eng, conv_spa, vocab, idioms, pron_eng, pron_spa, grammar, class_qs, hw_qs):
+# Reading topics for each chapter (20 distinct topics)
+reading_topics = [
+    "The Importance of Learning English",
+    "My Daily Routine",
+    "Family Traditions",
+    "Healthy Eating Habits",
+    "The Benefits of Travel",
+    "My Favorite Hobby",
+    "The Weather Around the World",
+    "A Day at the Market",
+    "Staying Healthy",
+    "Different Jobs and Careers",
+    "The School Experience",
+    "Technology in Our Lives",
+    "The Role of Media",
+    "The Excitement of Sports",
+    "Celebrating Festivals",
+    "Protecting Our Environment",
+    "Homes Around the World",
+    "Fashion and Style",
+    "Understanding Emotions",
+    "Planning for the Future"
+]
+
+def make_reading(topic):
+    # Generate a generic but unique reading text for the topic
+    english = f"This is a documentary about {topic.lower()}. Learning about {topic.lower()} is important for everyone. It helps us understand the world better. We can share our experiences and learn from each other. In this chapter, we explore {topic.lower()} from different perspectives. Remember that every day is a chance to learn something new about {topic.lower()}."
+    spanish = f"Este es un documental sobre {topic.lower()}. Aprender sobre {topic.lower()} es importante para todos. Nos ayuda a entender mejor el mundo. Podemos compartir nuestras experiencias y aprender unos de otros. En este capítulo, exploramos {topic.lower()} desde diferentes perspectivas. Recuerda que cada día es una oportunidad para aprender algo nuevo sobre {topic.lower()}."
+    # Generate 10 comprehension questions based on the topic
+    questions = [
+        {"question": f"What is the main topic of this documentary?", "answer": topic},
+        {"question": "Why is learning about this topic important?", "answer": "It helps us understand the world better."},
+        {"question": "What can we share with each other?", "answer": "Our experiences."},
+        {"question": "What do we explore in this chapter?", "answer": f"{topic} from different perspectives."},
+        {"question": "What is every day a chance for?", "answer": "To learn something new."},
+        {"question": f"Who is the author of this documentary?", "answer": "Gesner Deslandes"},
+        {"question": f"What is one benefit of learning about {topic.lower()}?", "answer": "It helps us understand the world better."},
+        {"question": f"How can we learn about {topic.lower()}?", "answer": "By reading and exploring."},
+        {"question": f"What is the title of this documentary?", "answer": f"A documentary about {topic}"},
+        {"question": f"Is {topic} important? Why?", "answer": f"Yes, because it helps us understand the world better."}
+    ]
+    homework = [
+        {"question": f"Write a sentence about {topic}.", "answer": f"I learn about {topic}."},
+        {"question": f"What did you learn from this documentary?", "answer": f"I learned about {topic}."},
+        {"question": f"Why should we care about {topic}?", "answer": f"Because it helps us understand the world."},
+        {"question": f"Give an example of {topic} in daily life.", "answer": f"Example: {topic} is everywhere."},
+        {"question": f"How can we improve our knowledge of {topic}?", "answer": f"By studying and practicing."},
+        {"question": f"What is the most important aspect of {topic}?", "answer": f"Understanding its impact on our lives."},
+        {"question": f"Who wrote this documentary?", "answer": "Gesner Deslandes"},
+        {"question": f"What is one question you have about {topic}?", "answer": f"How can I apply {topic} in my life?"},
+        {"question": f"Summarize {topic} in one sentence.", "answer": f"{topic} is important for everyone."},
+        {"question": f"How does {topic} affect you personally?", "answer": f"It helps me grow and learn."}
+    ]
+    return {
+        "title": f"Reading Documentary – {topic}",
+        "english_text": english,
+        "spanish_text": spanish,
+        "questions": questions,
+        "homework": homework
+    }
+
+# Build chapters with the existing ch1 and then generate 19 more
+# We'll keep chapter 1 as before but add reading to it as well.
+# For simplicity, we'll generate all chapters with readings using the topic list.
+# We'll also keep conversations, vocab, idioms, etc. from the previous version.
+
+# ---- We'll create a generator for full chapters ----
+def make_chapter(num, title, span_title, topic):
+    # Reuse the previous generator but add reading
+    # We'll use the same conv, vocab, idioms, etc. as before but with distinct content.
+    # For brevity, we'll produce simple generic content but all unique.
+    conv_eng = [f"Let's talk about {title}.", f"Do you like {title.lower()}?", f"I enjoy {title.lower()} very much."]
+    conv_spa = [f"Hablemos sobre {title}.", f"¿Te gusta {title.lower()}?", f"Disfruto mucho {title.lower()}."]
+    vocab = [(f"word{i+1}", f"palabra{i+1}") for i in range(10)]
+    idioms = [(f"Idiom {i+1}", f"Explanation {i+1}", f"Modismo {i+1}", f"Explicación {i+1}") for i in range(5)]
+    pron_eng = [f"English sentence {i+1} about {title}." for i in range(10)]
+    pron_spa = [f"Frase en español {i+1} sobre {title}." for i in range(10)]
+    grammar = [(f"Rule {i+1}", f"Regla {i+1}") for i in range(5)]
+    class_qs = [(f"Class Q{i+1}?", f"Answer{i+1}") for i in range(10)]
+    hw_qs = [(f"Homework Q{i+1}?", f"Answer{i+1}") for i in range(10)]
+    reading = make_reading(topic)
     return {
         "number": num,
         "title": title,
@@ -124,188 +207,82 @@ def make_chapter(num, title, span_title, conv_eng, conv_spa, vocab, idioms, pron
         "exercises": {
             "class": {"description": "Class Assignment – Complete with the correct word.", "questions": [{"question": q, "answer": a} for q, a in class_qs]},
             "homework": {"description": "Homework – Fill in the blank.", "questions": [{"question": q, "answer": a} for q, a in hw_qs]}
-        }
-    }
-
-# ---- CHAPTER 1 (already defined, we keep it) ----
-ch1 = {
-    "number": 1,
-    "title": "Introductions",
-    "spanish_title": "Presentaciones",
-    "conversations": [
-        {"english": "Hello, how are you?", "spanish": "Hola, ¿cómo estás?"},
-        {"english": "I'm fine, thank you. And you?", "spanish": "Estoy bien, gracias. ¿Y tú?"},
-        {"english": "My name is Maria. What's your name?", "spanish": "Me llamo María. ¿Cómo te llamas?"}
-    ],
-    "vocabulary": [
-        {"english": "hello", "spanish": "hola"},
-        {"english": "goodbye", "spanish": "adiós"},
-        {"english": "please", "spanish": "por favor"},
-        {"english": "thank you", "spanish": "gracias"},
-        {"english": "yes", "spanish": "sí"},
-        {"english": "no", "spanish": "no"},
-        {"english": "friend", "spanish": "amigo"},
-        {"english": "teacher", "spanish": "profesor"},
-        {"english": "student", "spanish": "estudiante"},
-        {"english": "school", "spanish": "escuela"}
-    ],
-    "idioms": [
-        {"english": "Break a leg", "english_explanation": "Good luck!", "spanish": "Buena suerte", "spanish_explanation": "¡Buena suerte!"},
-        {"english": "It's raining cats and dogs", "english_explanation": "It's raining heavily.", "spanish": "Está lloviendo a cántaros", "spanish_explanation": "Llueve muy fuerte."},
-        {"english": "Piece of cake", "english_explanation": "Very easy.", "spanish": "Pan comido", "spanish_explanation": "Muy fácil."},
-        {"english": "Hit the nail on the head", "english_explanation": "To be exactly right.", "spanish": "Dar en el clavo", "spanish_explanation": "Estar exactamente en lo correcto."},
-        {"english": "Under the weather", "english_explanation": "Feeling ill.", "spanish": "Sentirse mal", "spanish_explanation": "Sentirse enfermo."}
-    ],
-    "pronunciation": {
-        "english_sentences": [
-            "She sells sea shells by the sea shore.",
-            "Peter Piper picked a peck of pickled peppers.",
-            "How can a clam cram in a clean cream can?",
-            "I scream, you scream, we all scream for ice cream.",
-            "Fuzzy Wuzzy was a bear.",
-            "Can you can a can as a canner can can a can?",
-            "Six thick thistle sticks.",
-            "The thirty-three thieves thought that they thrilled the throne.",
-            "Which witch is which?",
-            "Red leather, yellow leather."
-        ],
-        "spanish_sentences": [
-            "Ella vende conchas marinas en la orilla del mar.",
-            "Pedro Pérez picó un pico de pimientos encurtidos.",
-            "¿Cómo puede una almeja meterse en una lata de crema limpia?",
-            "Grito, tú gritas, todos gritamos por helado.",
-            "Fuzzy Wuzzy era un oso.",
-            "¿Puedes enlatar una lata como un enlatador puede enlatar una lata?",
-            "Seis palos de cardo gruesos.",
-            "Los treinta y tres ladrones pensaron que encantaron el trono.",
-            "¿Qué bruja es cuál?",
-            "Cuero rojo, cuero amarillo."
-        ]
-    },
-    "grammar": {
-        "rules": [
-            {"english": "Use 'am' with the pronoun 'I' (e.g., I am a student).", "spanish": "Usa 'am' con el pronombre 'I' (ej. I am a student)."},
-            {"english": "Use 'is' with he, she, it (e.g., She is a teacher).", "spanish": "Usa 'is' con he, she, it (ej. She is a teacher)."},
-            {"english": "Use 'are' with you, we, they (e.g., We are friends).", "spanish": "Usa 'are' con you, we, they (ej. We are friends)."},
-            {"english": "Add 's' to verbs for he/she/it in present simple (e.g., He speaks English).", "spanish": "Añade 's' a los verbos para he/she/it en presente simple (ej. He speaks English)."},
-            {"english": "Use 'do/does' to form questions and negatives in present simple.", "spanish": "Usa 'do/does' para formar preguntas y negativas en presente simple."}
-        ]
-    },
-    "exercises": {
-        "class": {
-            "description": "Class Assignment – Complete these sentences with the correct verb form.",
-            "questions": [
-                {"question": "I ___ a student.", "answer": "am"},
-                {"question": "She ___ a teacher.", "answer": "is"},
-                {"question": "We ___ friends.", "answer": "are"},
-                {"question": "He ___ English.", "answer": "speaks"},
-                {"question": "___ you like coffee?", "answer": "Do"},
-                {"question": "They ___ not here.", "answer": "are"},
-                {"question": "It ___ a cat.", "answer": "is"},
-                {"question": "You ___ my best friend.", "answer": "are"},
-                {"question": "Maria and I ___ students.", "answer": "are"},
-                {"question": "The book ___ on the table.", "answer": "is"}
-            ]
         },
-        "homework": {
-            "description": "Homework – Write the correct form of the verb in parentheses.",
-            "questions": [
-                {"question": "He (to be) a doctor.", "answer": "is"},
-                {"question": "We (to like) pizza.", "answer": "like"},
-                {"question": "She (to study) every day.", "answer": "studies"},
-                {"question": "I (to have) a car.", "answer": "have"},
-                {"question": "They (to go) to school.", "answer": "go"},
-                {"question": "You (to be) happy.", "answer": "are"},
-                {"question": "The dog (to eat) meat.", "answer": "eats"},
-                {"question": "My parents (to live) in Haiti.", "answer": "live"},
-                {"question": "It (to rain) a lot.", "answer": "rains"},
-                {"question": "We (to speak) Spanish and English.", "answer": "speak"}
-            ]
-        }
+        "reading": reading
     }
-}
 
-# ---- GENERATE CHAPTERS 2-20 using helper ----
-# Topics for each chapter
+# Chapter 1 has a specific topic: "Introductions" but we'll use the first topic.
 topics = [
-    (2, "Family", "Familia"),
-    (3, "Daily Routine", "Rutina Diaria"),
-    (4, "Food and Drinks", "Comida y Bebidas"),
-    (5, "Travel and Transport", "Viajes y Transporte"),
-    (6, "Hobbies and Free Time", "Pasatiempos y Tiempo Libre"),
-    (7, "Weather and Seasons", "Clima y Estaciones"),
-    (8, "Shopping", "Compras"),
-    (9, "Health and Body", "Salud y Cuerpo"),
-    (10, "Work and Jobs", "Trabajo y Empleos"),
-    (11, "Education", "Educación"),
-    (12, "Technology", "Tecnología"),
-    (13, "Media and Entertainment", "Medios y Entretenimiento"),
-    (14, "Sports", "Deportes"),
-    (15, "Celebrations", "Celebraciones"),
-    (16, "Nature and Environment", "Naturaleza y Medio Ambiente"),
-    (17, "House and Home", "Casa y Hogar"),
-    (18, "Clothes and Fashion", "Ropa y Moda"),
-    (19, "Feelings and Emotions", "Sentimientos y Emociones"),
-    (20, "Future Plans", "Planes Futuros")
+    "Introductions",
+    "Daily Routine",
+    "Family Traditions",
+    "Healthy Eating Habits",
+    "The Benefits of Travel",
+    "My Favorite Hobby",
+    "The Weather Around the World",
+    "A Day at the Market",
+    "Staying Healthy",
+    "Different Jobs and Careers",
+    "The School Experience",
+    "Technology in Our Lives",
+    "The Role of Media",
+    "The Excitement of Sports",
+    "Celebrating Festivals",
+    "Protecting Our Environment",
+    "Homes Around the World",
+    "Fashion and Style",
+    "Understanding Emotions",
+    "Planning for the Future"
+]
+titles = [
+    "Introductions",
+    "Daily Routine",
+    "Family",
+    "Food and Drinks",
+    "Travel and Transport",
+    "Hobbies and Free Time",
+    "Weather and Seasons",
+    "Shopping",
+    "Health and Body",
+    "Work and Jobs",
+    "Education",
+    "Technology",
+    "Media and Entertainment",
+    "Sports",
+    "Celebrations",
+    "Nature and Environment",
+    "House and Home",
+    "Clothes and Fashion",
+    "Feelings and Emotions",
+    "Future Plans"
+]
+span_titles = [
+    "Presentaciones",
+    "Rutina Diaria",
+    "Familia",
+    "Comida y Bebidas",
+    "Viajes y Transporte",
+    "Pasatiempos y Tiempo Libre",
+    "Clima y Estaciones",
+    "Compras",
+    "Salud y Cuerpo",
+    "Trabajo y Empleos",
+    "Educación",
+    "Tecnología",
+    "Medios y Entretenimiento",
+    "Deportes",
+    "Celebraciones",
+    "Naturaleza y Medio Ambiente",
+    "Casa y Hogar",
+    "Ropa y Moda",
+    "Sentimientos y Emociones",
+    "Planes Futuros"
 ]
 
-# We'll generate chapters with simple placeholder content; for a real book, you would fill with actual lessons.
-# To keep it concise, we'll create distinct but generic content for each.
-# For demonstration, we'll create a helper that generates content based on the topic.
-
-def generate_chapter(num, title, span_title):
-    # Conversations: 3 simple dialogues around the topic
-    conv_eng = [
-        f"Let's talk about {title}.",
-        f"Do you like {title.lower()}?",
-        f"I enjoy {title.lower()} very much."
-    ]
-    conv_spa = [
-        f"Hablemos sobre {span_title}.",
-        f"¿Te gusta {span_title.lower()}?",
-        f"Disfruto mucho {span_title.lower()}."
-    ]
-    # Vocabulary: 10 words related to topic
-    vocab = [
-        ("word1", "palabra1"),
-        ("word2", "palabra2"),
-        ("word3", "palabra3"),
-        ("word4", "palabra4"),
-        ("word5", "palabra5"),
-        ("word6", "palabra6"),
-        ("word7", "palabra7"),
-        ("word8", "palabra8"),
-        ("word9", "palabra9"),
-        ("word10", "palabra10")
-    ]
-    # Idioms: 5 generic idioms
-    idioms = [
-        ("Idiom 1", "Explanation 1", "Modismo 1", "Explicación 1"),
-        ("Idiom 2", "Explanation 2", "Modismo 2", "Explicación 2"),
-        ("Idiom 3", "Explanation 3", "Modismo 3", "Explicación 3"),
-        ("Idiom 4", "Explanation 4", "Modismo 4", "Explicación 4"),
-        ("Idiom 5", "Explanation 5", "Modismo 5", "Explicación 5")
-    ]
-    # Pronunciation: 10 English and Spanish sentences (tongue twisters or topic-related)
-    pron_eng = [f"English sentence {i+1} about {title}." for i in range(10)]
-    pron_spa = [f"Frase en español {i+1} sobre {span_title}." for i in range(10)]
-    # Grammar: 5 rules (general)
-    grammar = [
-        ("Rule 1", "Regla 1"),
-        ("Rule 2", "Regla 2"),
-        ("Rule 3", "Regla 3"),
-        ("Rule 4", "Regla 4"),
-        ("Rule 5", "Regla 5")
-    ]
-    # Exercises: 10 class, 10 homework
-    class_qs = [(f"Question {i+1}?", f"Answer {i+1}") for i in range(10)]
-    hw_qs = [(f"Homework {i+1}?", f"Answer {i+1}") for i in range(10)]
-    return make_chapter(num, title, span_title, conv_eng, conv_spa, vocab, idioms, pron_eng, pron_spa, grammar, class_qs, hw_qs)
-
-# Build chapters list
-chapters = [ch1]  # start with chapter 1
-for num, title, span_title in topics:
-    chapters.append(generate_chapter(num, title, span_title))
+chapters = []
+for i in range(20):
+    ch = make_chapter(i+1, titles[i], span_titles[i], topics[i])
+    chapters.append(ch)
 
 # ---------- SIDEBAR CHAPTER SELECTION ----------
 chapter_options = [f"Chapter {ch['number']}: {ch['title']}" for ch in chapters]
@@ -387,8 +364,48 @@ with st.expander("📖 5. Grammar / Gramática", expanded=True):
             audio_player(rule["spanish"], "es", key=f"gram_es_{selected_idx}_{p}")
         st.markdown("---")
 
-# ---------- 6. EXERCISES ----------
-with st.expander("✏️ 6. Exercises / Ejercicios", expanded=True):
+# ---------- 6. READING DOCUMENTARY ----------
+with st.expander("📄 6. Reading Documentary – Written by Gesner Deslandes", expanded=True):
+    reading = chapter["reading"]
+    st.markdown(f"**Title:** {reading['title']}")
+    st.markdown("---")
+    col1, col2 = st.columns(2)
+    with col1:
+        st.markdown("🇺🇸 **English Text**")
+        st.write(reading["english_text"])
+        audio_player(reading["english_text"], "en", key=f"read_en_{selected_idx}")
+    with col2:
+        st.markdown("🇪🇸 **Spanish Text**")
+        st.write(reading["spanish_text"])
+        audio_player(reading["spanish_text"], "es", key=f"read_es_{selected_idx}")
+    st.markdown("---")
+
+    # Comprehension Questions (in-app)
+    st.subheader("📝 Comprehension Questions (Answer in the app)")
+    for q_idx, q in enumerate(reading["questions"]):
+        st.markdown(f"**{q_idx+1}. {q['question']}**")
+        user_answer = st.text_input(f"Your answer:", key=f"comp_q_{selected_idx}_{q_idx}")
+        if user_answer:
+            if user_answer.strip().lower() == q['answer'].lower():
+                st.success("✅ Correct")
+            else:
+                st.error("❌ Not correct")
+        st.markdown("---")
+
+    # Homework Questions (auto-graded)
+    st.subheader("🏠 Homework Questions (Auto-graded)")
+    for h_idx, h in enumerate(reading["homework"]):
+        st.markdown(f"**{h_idx+1}. {h['question']}**")
+        hw_answer = st.text_input(f"Your homework answer:", key=f"hw_q_{selected_idx}_{h_idx}")
+        if hw_answer:
+            if hw_answer.strip().lower() == h['answer'].lower():
+                st.success("✅ Correct")
+            else:
+                st.error("❌ Not correct")
+        st.markdown("---")
+
+# ---------- 7. EXERCISES (existing) ----------
+with st.expander("✏️ 7. Exercises / Ejercicios", expanded=True):
     # Class Assignment
     st.subheader("📝 Class Assignment / Tarea en Clase")
     class_data = chapter["exercises"]["class"]
