@@ -212,7 +212,7 @@ with col_left:
 with col_right:
     st.markdown("""
     <div class="top-right">
-        <div class="price">💰 $30 USD</div>
+        <div class="price">💰 $10 USD</div>
         <div class="author">✍️ Written by <strong>Gesner Deslandes</strong></div>
         <div style="font-size:0.8rem; color:#880e4f; opacity:0.6;">GlobalInternet.py</div>
     </div>
