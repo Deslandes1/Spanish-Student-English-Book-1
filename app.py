@@ -383,11 +383,12 @@ for i in range(20):
     chapters.append(ch)
 
 # ---------- SONG DATA (3 Enrique Iglesias Songs) ----------
+# COMPLETE LYRICS FOR "Nunca Te Olvidaré" - ALL MISSING PARTS INCLUDED
 songs = {
     "Nunca Te Olvidaré": {
         "embed_url": "https://www.youtube.com/embed/pRrjt4htXlE",
         "lyrics": [
-            {"es": "Pueden pasar tres mil años", "en": "Three thousand years may pass"},
+            {"es": "Pueden pasar 3,000 años", "en": "Three thousand years may pass"},
             {"es": "Puedes besar otros labios", "en": "You may kiss other lips"},
             {"es": "Pero nunca te olvidaré", "en": "But I will never forget you"},
             {"es": "Pero nunca te olvidaré", "en": "But I will never forget you"},
@@ -395,10 +396,26 @@ songs = {
             {"es": "Puede secarse mi alma", "en": "My soul could dry up"},
             {"es": "Pero nunca te olvidaré", "en": "But I will never forget you"},
             {"es": "Pero nunca te olvidaré", "en": "But I will never forget you"},
+            {"es": "Pueden borrar mi memoria", "en": "They can erase my memory"},
+            {"es": "Pueden robarme tu historia", "en": "They can steal your story from me"},
+            {"es": "Pero nunca te olvidaré", "en": "But I will never forget you"},
+            {"es": "Pero nunca te olvidaré", "en": "But I will never forget you"},
+            {"es": "¿Cómo olvidar tu sonrisa?", "en": "How to forget your smile?"},
+            {"es": "¿Cómo olvidar tu mirada?", "en": "How to forget your gaze?"},
+            {"es": "¿Cómo olvidar que rezaba?", "en": "How to forget that I prayed?"},
+            {"es": "Para que no te marcharas", "en": "So that you wouldn't leave"},
+            {"es": "¿Cómo olvidar tus locuras?", "en": "How to forget your craziness?"},
+            {"es": "¿Cómo olvidar que volabas?", "en": "How to forget that you flew?"},
+            {"es": "¿Cómo olvidar que aún te quiero?", "en": "How to forget that I still love you?"},
             {"es": "Más que a vivir, más que a nada", "en": "More than living, more than anything"},
-            {"es": "Te quiero más que a mi vida", "en": "I love you more than my life"},
-            {"es": "Y aunque pase lo que pase", "en": "And no matter what happens"},
-            {"es": "Siempre te recordaré", "en": "I will always remember you"}
+            {"es": "Puedes echarme de tu vida", "en": "You can throw me out of your life"},
+            {"es": "Puedes negar que me querías", "en": "You can deny that you loved me"},
+            {"es": "Pero nunca te olvidaré", "en": "But I will never forget you"},
+            {"es": "Sabes que nunca te olvidaré", "en": "You know I will never forget you"},
+            {"es": "Pueden pasar 3,000 años", "en": "Three thousand years may pass"},
+            {"es": "Puedes besar otros labios", "en": "You may kiss other lips"},
+            {"es": "Pero nunca te olvidaré", "en": "But I will never forget you"},
+            {"es": "Pero nunca te olvidaré", "en": "But I will never forget you"}
         ]
     },
     "Súbeme la Radio": {
