@@ -156,6 +156,34 @@ st.markdown("""
         color: #4a1a2a;
         opacity: 0.8;
     }
+    .vocab-card {
+        background: #fce4ec;
+        border: 1px solid #f8bbd0;
+        border-radius: 12px;
+        padding: 12px 16px;
+        margin: 6px 0;
+        transition: all 0.3s ease;
+    }
+    .vocab-card:hover {
+        background: #f8bbd0;
+        transform: scale(1.02);
+        box-shadow: 0 4px 15px rgba(248, 187, 208, 0.4);
+    }
+    .vocab-card .word-en {
+        color: #4a1a2a;
+        font-weight: 600;
+        font-size: 1.1rem;
+    }
+    .vocab-card .word-es {
+        color: #880e4f;
+        font-weight: 600;
+        font-size: 1.1rem;
+    }
+    .vocab-card .divider {
+        color: #f06292;
+        font-weight: 300;
+        margin: 0 8px;
+    }
 </style>
 """, unsafe_allow_html=True)
 
@@ -377,6 +405,250 @@ span_titles = [
     "Planes Futuros"
 ]
 
+# ---------- CHAPTER VOCABULARY: 10 NEW WORDS PER CHAPTER ----------
+chapter_vocab = {
+    1: [
+        {"en": "Hello", "es": "Hola"},
+        {"en": "Goodbye", "es": "Adiós"},
+        {"en": "Name", "es": "Nombre"},
+        {"en": "Age", "es": "Edad"},
+        {"en": "Country", "es": "País"},
+        {"en": "Language", "es": "Idioma"},
+        {"en": "Student", "es": "Estudiante"},
+        {"en": "Teacher", "es": "Maestro"},
+        {"en": "Friend", "es": "Amigo"},
+        {"en": "Family", "es": "Familia"}
+    ],
+    2: [
+        {"en": "Wake up", "es": "Despertarse"},
+        {"en": "Brush", "es": "Cepillar"},
+        {"en": "Breakfast", "es": "Desayuno"},
+        {"en": "Work", "es": "Trabajo"},
+        {"en": "School", "es": "Escuela"},
+        {"en": "Lunch", "es": "Almuerzo"},
+        {"en": "Rest", "es": "Descanso"},
+        {"en": "Dinner", "es": "Cena"},
+        {"en": "Sleep", "es": "Dormir"},
+        {"en": "Routine", "es": "Rutina"}
+    ],
+    3: [
+        {"en": "Mother", "es": "Madre"},
+        {"en": "Father", "es": "Padre"},
+        {"en": "Sister", "es": "Hermana"},
+        {"en": "Brother", "es": "Hermano"},
+        {"en": "Grandmother", "es": "Abuela"},
+        {"en": "Grandfather", "es": "Abuelo"},
+        {"en": "Uncle", "es": "Tío"},
+        {"en": "Aunt", "es": "Tía"},
+        {"en": "Cousin", "es": "Primo"},
+        {"en": "Nephew", "es": "Sobrino"}
+    ],
+    4: [
+        {"en": "Apple", "es": "Manzana"},
+        {"en": "Banana", "es": "Plátano"},
+        {"en": "Bread", "es": "Pan"},
+        {"en": "Milk", "es": "Leche"},
+        {"en": "Water", "es": "Agua"},
+        {"en": "Juice", "es": "Jugo"},
+        {"en": "Egg", "es": "Huevo"},
+        {"en": "Rice", "es": "Arroz"},
+        {"en": "Salad", "es": "Ensalada"},
+        {"en": "Chicken", "es": "Pollo"}
+    ],
+    5: [
+        {"en": "Plane", "es": "Avión"},
+        {"en": "Train", "es": "Tren"},
+        {"en": "Car", "es": "Coche"},
+        {"en": "Bus", "es": "Autobús"},
+        {"en": "Boat", "es": "Barco"},
+        {"en": "Ticket", "es": "Boleto"},
+        {"en": "Map", "es": "Mapa"},
+        {"en": "Luggage", "es": "Equipaje"},
+        {"en": "Hotel", "es": "Hotel"},
+        {"en": "Beach", "es": "Playa"}
+    ],
+    6: [
+        {"en": "Music", "es": "Música"},
+        {"en": "Dance", "es": "Baile"},
+        {"en": "Read", "es": "Leer"},
+        {"en": "Write", "es": "Escribir"},
+        {"en": "Draw", "es": "Dibujar"},
+        {"en": "Sing", "es": "Cantar"},
+        {"en": "Play", "es": "Jugar"},
+        {"en": "Run", "es": "Correr"},
+        {"en": "Swim", "es": "Nadar"},
+        {"en": "Travel", "es": "Viajar"}
+    ],
+    7: [
+        {"en": "Sun", "es": "Sol"},
+        {"en": "Rain", "es": "Lluvia"},
+        {"en": "Snow", "es": "Nieve"},
+        {"en": "Wind", "es": "Viento"},
+        {"en": "Cloud", "es": "Nube"},
+        {"en": "Storm", "es": "Tormenta"},
+        {"en": "Summer", "es": "Verano"},
+        {"en": "Winter", "es": "Invierno"},
+        {"en": "Spring", "es": "Primavera"},
+        {"en": "Autumn", "es": "Otoño"}
+    ],
+    8: [
+        {"en": "Store", "es": "Tienda"},
+        {"en": "Price", "es": "Precio"},
+        {"en": "Money", "es": "Dinero"},
+        {"en": "Buy", "es": "Comprar"},
+        {"en": "Sell", "es": "Vender"},
+        {"en": "Bag", "es": "Bolsa"},
+        {"en": "Product", "es": "Producto"},
+        {"en": "Market", "es": "Mercado"},
+        {"en": "Change", "es": "Cambio"},
+        {"en": "List", "es": "Lista"}
+    ],
+    9: [
+        {"en": "Head", "es": "Cabeza"},
+        {"en": "Heart", "es": "Corazón"},
+        {"en": "Lungs", "es": "Pulmones"},
+        {"en": "Doctor", "es": "Médico"},
+        {"en": "Medicine", "es": "Medicina"},
+        {"en": "Healthy", "es": "Saludable"},
+        {"en": "Exercise", "es": "Ejercicio"},
+        {"en": "Body", "es": "Cuerpo"},
+        {"en": "Pain", "es": "Dolor"},
+        {"en": "Cure", "es": "Cura"}
+    ],
+    10: [
+        {"en": "Job", "es": "Empleo"},
+        {"en": "Office", "es": "Oficina"},
+        {"en": "Salary", "es": "Salario"},
+        {"en": "Boss", "es": "Jefe"},
+        {"en": "Worker", "es": "Trabajador"},
+        {"en": "Uniform", "es": "Uniforme"},
+        {"en": "Schedule", "es": "Horario"},
+        {"en": "Career", "es": "Carrera"},
+        {"en": "Experience", "es": "Experiencia"},
+        {"en": "Skills", "es": "Habilidades"}
+    ],
+    11: [
+        {"en": "Teacher", "es": "Profesor"},
+        {"en": "Classroom", "es": "Aula"},
+        {"en": "Student", "es": "Estudiante"},
+        {"en": "Homework", "es": "Tarea"},
+        {"en": "Exam", "es": "Examen"},
+        {"en": "Book", "es": "Libro"},
+        {"en": "Pencil", "es": "Lápiz"},
+        {"en": "Grade", "es": "Calificación"},
+        {"en": "Lesson", "es": "Lección"},
+        {"en": "School", "es": "Colegio"}
+    ],
+    12: [
+        {"en": "Computer", "es": "Computadora"},
+        {"en": "Phone", "es": "Teléfono"},
+        {"en": "Internet", "es": "Internet"},
+        {"en": "Email", "es": "Correo"},
+        {"en": "Screen", "es": "Pantalla"},
+        {"en": "Keyboard", "es": "Teclado"},
+        {"en": "Mouse", "es": "Ratón"},
+        {"en": "App", "es": "Aplicación"},
+        {"en": "Download", "es": "Descargar"},
+        {"en": "Upload", "es": "Subir"}
+    ],
+    13: [
+        {"en": "News", "es": "Noticias"},
+        {"en": "Movie", "es": "Película"},
+        {"en": "Television", "es": "Televisión"},
+        {"en": "Radio", "es": "Radio"},
+        {"en": "Music", "es": "Música"},
+        {"en": "Interview", "es": "Entrevista"},
+        {"en": "Journalist", "es": "Periodista"},
+        {"en": "Article", "es": "Artículo"},
+        {"en": "Blog", "es": "Blog"},
+        {"en": "Social Media", "es": "Redes Sociales"}
+    ],
+    14: [
+        {"en": "Football", "es": "Fútbol"},
+        {"en": "Basketball", "es": "Baloncesto"},
+        {"en": "Tennis", "es": "Tenis"},
+        {"en": "Swimming", "es": "Natación"},
+        {"en": "Gym", "es": "Gimnasio"},
+        {"en": "Practice", "es": "Práctica"},
+        {"en": "Team", "es": "Equipo"},
+        {"en": "Game", "es": "Juego"},
+        {"en": "Score", "es": "Puntuación"},
+        {"en": "Winner", "es": "Ganador"}
+    ],
+    15: [
+        {"en": "Party", "es": "Fiesta"},
+        {"en": "Birthday", "es": "Cumpleaños"},
+        {"en": "Dance", "es": "Baile"},
+        {"en": "Music", "es": "Música"},
+        {"en": "Gift", "es": "Regalo"},
+        {"en": "Decoration", "es": "Decoración"},
+        {"en": "Celebrate", "es": "Celebrar"},
+        {"en": "Invite", "es": "Invitar"},
+        {"en": "Guest", "es": "Invitado"},
+        {"en": "Cake", "es": "Pastel"}
+    ],
+    16: [
+        {"en": "Tree", "es": "Árbol"},
+        {"en": "Flower", "es": "Flor"},
+        {"en": "Garden", "es": "Jardín"},
+        {"en": "Recycle", "es": "Reciclar"},
+        {"en": "Clean", "es": "Limpiar"},
+        {"en": "Protect", "es": "Proteger"},
+        {"en": "Nature", "es": "Naturaleza"},
+        {"en": "Water", "es": "Agua"},
+        {"en": "Air", "es": "Aire"},
+        {"en": "Earth", "es": "Tierra"}
+    ],
+    17: [
+        {"en": "House", "es": "Casa"},
+        {"en": "Room", "es": "Habitación"},
+        {"en": "Kitchen", "es": "Cocina"},
+        {"en": "Bathroom", "es": "Baño"},
+        {"en": "Living Room", "es": "Sala"},
+        {"en": "Garden", "es": "Jardín"},
+        {"en": "Neighbor", "es": "Vecino"},
+        {"en": "Rent", "es": "Alquiler"},
+        {"en": "Furniture", "es": "Muebles"},
+        {"en": "Home", "es": "Hogar"}
+    ],
+    18: [
+        {"en": "Shirt", "es": "Camisa"},
+        {"en": "Pants", "es": "Pantalones"},
+        {"en": "Shoes", "es": "Zapatos"},
+        {"en": "Dress", "es": "Vestido"},
+        {"en": "Coat", "es": "Abrigo"},
+        {"en": "Hat", "es": "Sombrero"},
+        {"en": "Fashion", "es": "Moda"},
+        {"en": "Style", "es": "Estilo"},
+        {"en": "Color", "es": "Color"},
+        {"en": "Designer", "es": "Diseñador"}
+    ],
+    19: [
+        {"en": "Happy", "es": "Feliz"},
+        {"en": "Sad", "es": "Triste"},
+        {"en": "Angry", "es": "Enojado"},
+        {"en": "Scared", "es": "Asustado"},
+        {"en": "Surprised", "es": "Sorprendido"},
+        {"en": "Nervous", "es": "Nervioso"},
+        {"en": "Excited", "es": "Emocionado"},
+        {"en": "Calm", "es": "Calmado"},
+        {"en": "Proud", "es": "Orgulloso"},
+        {"en": "Lonely", "es": "Solitario"}
+    ],
+    20: [
+        {"en": "Future", "es": "Futuro"},
+        {"en": "Dream", "es": "Sueño"},
+        {"en": "Goal", "es": "Meta"},
+        {"en": "Plan", "es": "Plan"},
+        {"en": "Save", "es": "Ahorrar"},
+        {"en": "Invest", "es": "Invertir"},
+        {"en": "Travel", "es": "Viajar"},
+        {"en": "Study", "es": "Estudiar"},
+        {"en": "Work", "es": "Trabajar"},
+        {"en": "Success", "es": "Éxito"}
+    ]
+}
+
 chapters = []
 for i in range(20):
     ch = make_chapter(i+1, titles[i], span_titles[i], topics[i])
@@ -565,6 +837,65 @@ if selected_song:
 
     st.markdown("---")
     st.caption("🎶 Sing along and practice your Spanish pronunciation!")
+
+    # ---------- NEW: CHAPTER VOCABULARY SECTION ----------
+    st.markdown("---")
+    st.markdown("## 📚 Chapter Vocabulary - 10 New Words")
+    st.markdown("*Learn and practice pronunciation with AI voice (female)*")
+    st.markdown("---")
+
+    # Get the vocabulary for this chapter
+    vocab_list = chapter_vocab.get(selected_idx + 1, [
+        {"en": "Word 1", "es": "Palabra 1"},
+        {"en": "Word 2", "es": "Palabra 2"},
+        {"en": "Word 3", "es": "Palabra 3"},
+        {"en": "Word 4", "es": "Palabra 4"},
+        {"en": "Word 5", "es": "Palabra 5"},
+        {"en": "Word 6", "es": "Palabra 6"},
+        {"en": "Word 7", "es": "Palabra 7"},
+        {"en": "Word 8", "es": "Palabra 8"},
+        {"en": "Word 9", "es": "Palabra 9"},
+        {"en": "Word 10", "es": "Palabra 10"}
+    ])
+
+    # Display vocabulary in a grid
+    for i in range(0, len(vocab_list), 2):
+        col1, col2 = st.columns(2)
+        
+        # First word
+        with col1:
+            word = vocab_list[i]
+            st.markdown(f"""
+            <div class="vocab-card">
+                <div class="word-en">🇺🇸 {word['en']}</div>
+            </div>
+            """, unsafe_allow_html=True)
+            audio_player(word['en'], "en", key=f"vocab_en_{selected_idx}_{i}")
+            st.markdown(f"""
+            <div class="vocab-card">
+                <div class="word-es">🇪🇸 {word['es']}</div>
+            </div>
+            """, unsafe_allow_html=True)
+            audio_player(word['es'], "es", key=f"vocab_es_{selected_idx}_{i}")
+        
+        # Second word (if it exists)
+        with col2:
+            if i + 1 < len(vocab_list):
+                word = vocab_list[i + 1]
+                st.markdown(f"""
+                <div class="vocab-card">
+                    <div class="word-en">🇺🇸 {word['en']}</div>
+                </div>
+                """, unsafe_allow_html=True)
+                audio_player(word['en'], "en", key=f"vocab_en_{selected_idx}_{i+1}")
+                st.markdown(f"""
+                <div class="vocab-card">
+                    <div class="word-es">🇪🇸 {word['es']}</div>
+                </div>
+                """, unsafe_allow_html=True)
+                audio_player(word['es'], "es", key=f"vocab_es_{selected_idx}_{i+1}")
+        
+        st.markdown("---")
 
 # ---------- DISPLAY SELECTED CHAPTER ----------
 st.header(f"📘 Chapter {chapter['number']}: {chapter['title']}")
